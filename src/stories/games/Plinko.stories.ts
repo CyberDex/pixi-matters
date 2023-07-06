@@ -6,12 +6,6 @@ import { SquareMatterBody } from '../../SquareMatterBody';
 import { getRandomInRange, getRandomItem } from '../utils/random';
 
 const args = {
-    restitution: 0.2,
-    rowsCount: 7,
-    distX: 100,
-    distY: 70,
-    size: 15,
-    delay: 1000
 };
 
 type Args = typeof args;
@@ -38,16 +32,12 @@ class Story
                 y: -20,
                 radius: 25,
                 color: 'red',
-            }, {
-                restitution: props.restitution,
             });
 
-        const {
-            rowsCount,
-            distX,
-            distY,
-            size,
-        } = props;
+        const rowsCount = 7;
+        const distX = 100;
+        const distY = 70;
+        const size = 15;
 
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
@@ -82,9 +72,9 @@ class Story
             this.addBucket(bucketsStartX + (x * distX), bucketsY);
         }
 
-        const bottomLineY = bucketsY + 75;
+        const bottomLineY = bucketsY + 90;
 
-        this.addBottomLine(centerX, bottomLineY, (distX * rowsCount) + 1, 50);
+        this.addBottomLine(centerX, bottomLineY, (distX * rowsCount) + 1, 20);
 
         // Run matterJS engine
         Runner.run(this.engine);
@@ -128,7 +118,7 @@ class Story
 
         this.view.addChild(body);
 
-        setTimeout(() => this.addBall(x, y), this.props.delay);
+        setTimeout(() => this.addBall(x, y), 1000);
     }
 
     private addBucket(x: number, y: number)
