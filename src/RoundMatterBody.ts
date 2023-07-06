@@ -56,6 +56,7 @@ export class RoundMatterBody extends Graphics
         Ticker.shared.remove(this.update, this);
         this.parent?.removeChild(this);
         Composite.remove(this.world, this.body);
+        this.body = null;
         super.destroy(options);
     }
 
