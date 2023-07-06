@@ -8,8 +8,8 @@ import { getRandomInRange, getRandomItem } from '../utils/random';
 const args = {
     restitution: 0.2,
     rowsCount: 7,
-    distX: 70,
-    distY: 50,
+    distX: 100,
+    distY: 70,
     size: 15,
     delay: 1000
 };
