@@ -5,20 +5,17 @@ import { Container } from '@pixi/display';
 import { SquareMatterBody } from '../../SquareMatterBody';
 import { getRandomInRange, getRandomItem } from '../utils/random';
 
-const args = {
-};
+const args = {};
 
 type Args = typeof args;
 
-class Story
-{
+class Story {
     view = new Container();
     engine: Engine;
     ball: RoundMatterBody;
     props: Args;
 
-    constructor(props: Args)
-    {
+    constructor(props: Args) {
         this.props = props;
 
         // create matterJS engine
@@ -32,9 +29,10 @@ class Story
                 y: -20,
                 radius: 25,
                 color: 'red',
-            });
+            },
+        );
 
-        const rowsCount = 7;
+        const rowsCount = 8;
         const distX = 100;
         const distY = 70;
         const size = 15;
@@ -42,39 +40,34 @@ class Story
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
 
-        const startY = centerY - ((distX * rowsCount) / 2);
+        const startY = centerY - (distX * rowsCount) / 2;
 
-        for (let y = 1; y < rowsCount + 1; y++)
-        {
-            const startX = centerX - ((distX * y) / 2);
+        for (let y = 1; y < rowsCount + 1; y++) {
+            const startX = centerX - (distX * y) / 2;
 
-            for (let x = 0; x < y + 1; x++)
-            {
-                this.addStaticDots(startX + (x * distX), startY + (y * distY), size);
+            for (let x = 0; x < y + 1; x++) {
+                this.addStaticDots(startX + x * distX, startY + y * distY, size);
             }
         }
 
-        for (let y = 1; y < rowsCount + 1; y++)
-        {
-            const startX = centerX - ((distX * y) / 2);
+        for (let y = 1; y < rowsCount + 1; y++) {
+            const startX = centerX - (distX * y) / 2;
 
-            for (let x = 0; x < y + 1; x++)
-            {
-                this.addStaticDots(startX + (x * distX), startY + (y * distY), size);
+            for (let x = 0; x < y + 1; x++) {
+                this.addStaticDots(startX + x * distX, startY + y * distY, size);
             }
         }
 
-        const bucketsStartX = centerX - ((distX * rowsCount) / 2);
-        const bucketsY = startY + (rowsCount * distY) + 120;
+        const bucketsStartX = centerX - (distX * rowsCount) / 2;
+        const bucketsY = startY + rowsCount * distY + 120;
 
-        for (let x = 0; x < rowsCount + 1; x++)
-        {
-            this.addBucket(bucketsStartX + (x * distX), bucketsY);
+        for (let x = 0; x < rowsCount + 1; x++) {
+            this.addBucket(bucketsStartX + x * distX, bucketsY);
         }
 
         const bottomLineY = bucketsY + 90;
 
-        this.addBottomLine(centerX, bottomLineY, (distX * rowsCount) + 1, 20);
+        this.addBottomLine(centerX, bottomLineY, distX * rowsCount + 1, 20);
 
         // Run matterJS engine
         Runner.run(this.engine);
@@ -82,8 +75,7 @@ class Story
         this.addBall(window.innerWidth / 2, startY - 100);
     }
 
-    private addStaticDots(x: number, y: number, radius: number)
-    {
+    private addStaticDots(x: number, y: number, radius: number) {
         const body = new RoundMatterBody(
             this.engine.world,
             {
@@ -100,8 +92,7 @@ class Story
         this.view.addChild(body);
     }
 
-    private addBall(x: number, y: number)
-    {
+    private addBall(x: number, y: number) {
         const body = new RoundMatterBody(
             this.engine.world,
             {
@@ -121,8 +112,7 @@ class Story
         setTimeout(() => this.addBall(x, y), 1000);
     }
 
-    private addBucket(x: number, y: number)
-    {
+    private addBucket(x: number, y: number) {
         const left = new SquareMatterBody(
             this.engine.world,
             { x, y, width: 10, height: 200, color: 'white' },
@@ -134,8 +124,7 @@ class Story
         this.view.addChild(left);
     }
 
-    private addBottomLine(x: number, y: number, width: number, height: number)
-    {
+    private addBottomLine(x: number, y: number, width: number, height: number) {
         const left = new SquareMatterBody(
             this.engine.world,
             { x, y, width, height, color: 'white' },
@@ -147,17 +136,14 @@ class Story
         this.view.addChild(left);
     }
 
-    private getRandomColor(): string
-    {
+    private getRandomColor(): string {
         return getRandomItem(COLORS);
     }
 
-    update()
-    {
+    update() {
         if (!this.ball) return;
 
-        if (this.ball.y > window.innerHeight)
-        {
+        if (this.ball.y > window.innerHeight) {
             this.ball.resetPosition(window.innerWidth / 2, -20);
         }
     }
@@ -168,7 +154,7 @@ export const Plinko = (params: any) => new Story(params);
 export default {
     title: 'Games',
     argTypes: argTypes(args),
-    args: getDefaultArgs(args)
+    args: getDefaultArgs(args),
 };
 
 const COLORS = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'brown', 'gray'];
